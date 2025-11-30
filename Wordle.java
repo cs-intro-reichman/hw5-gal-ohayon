@@ -45,13 +45,6 @@ public class Wordle {
     }
 
     // Store guess string (chars) into the given row of guesses 2D array.
-    // For example, of guess is HELLO, and row is 2, then after this function 
-    // guesses should look like:
-    // guesses[2][0] // 'H'
-    // guesses[2][1] // 'E'
-    // guesses[2][2] // 'L'
-    // guesses[2][3] // 'L'
-    // guesses[2][4] // 'O'
     public static void storeGuess(String guess, char[][] guesses, int row) {
         for (int i = 0; i < guess.length(); i++) {
             guesses[row][i] = guess.charAt(i);
@@ -96,7 +89,7 @@ public class Wordle {
         // Choose secret word
         String secret = chooseSecretWord(dict);
 
-        // check what is the secret word (as בדוגמה – מדפיס רק את המילה)
+        // Print secret word (כמו בדוגמאות: רק המילה)
         System.out.println(secret);
 
         // Prepare 2D arrays for guesses and results
@@ -118,17 +111,10 @@ public class Wordle {
             while (!valid) {
                 System.out.print("Enter your guess (5-letter word): ");
                 guess = inp.readString();
-                guess = guess.toUpperCase(); // כדי להתאים למילון ולפידבק
+                guess = guess.toUpperCase(); // להתאים למילון ולפידבק
 
-                boolean inDict = false;
-                for (int i = 0; i < dict.length; i++) {
-                    if (dict[i].equals(guess)) {
-                        inDict = true;
-                        break;
-                    }
-                }
-
-                if (guess.length() != WORD_LENGTH || !inDict) {
+                // שים לב: פה בודקים *רק* שהאורך 5, לא אם במילון
+                if (guess.length() != WORD_LENGTH) {
                     System.out.println("Invalid word. Please try again.");
                 } else {
                     valid = true;
