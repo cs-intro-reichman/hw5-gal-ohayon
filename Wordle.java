@@ -66,7 +66,7 @@ public class Wordle {
             for (int col = 0; col < guesses[row].length; col++) {
                 System.out.print(guesses[row][col]);
             }
-            System.out.print("   Result: ");
+            System.out.print(" Result: ");
             for (int col = 0; col < results[row].length; col++) {
                 System.out.print(results[row][col]);
             }
@@ -95,15 +95,15 @@ public class Wordle {
 
         // Choose secret word
         String secret = chooseSecretWord(dict);
-        //check what is the secret world
-        System.out.println("SECRET = " + secret);
 
+        // check what is the secret word (as בדוגמה – מדפיס רק את המילה)
+        System.out.println(secret);
 
         // Prepare 2D arrays for guesses and results
         char[][] guesses = new char[MAX_ATTEMPTS][WORD_LENGTH];
         char[][] results = new char[MAX_ATTEMPTS][WORD_LENGTH];
 
-        // Prepare to read from the standart input 
+        // Prepare to read from the standard input 
         In inp = new In();
 
         int attempt = 0;
@@ -118,10 +118,11 @@ public class Wordle {
             while (!valid) {
                 System.out.print("Enter your guess (5-letter word): ");
                 guess = inp.readString();
+                guess = guess.toUpperCase(); // כדי להתאים למילון ולפידבק
 
                 boolean inDict = false;
                 for (int i = 0; i < dict.length; i++) {
-                    if (dict[i].equalsIgnoreCase(guess)) {
+                    if (dict[i].equals(guess)) {
                         inDict = true;
                         break;
                     }
@@ -151,7 +152,9 @@ public class Wordle {
         }
 
         if (!won) {
-            System.out.println("Game over! The secret word was: " + secret);
+            System.out.println("Sorry, you did not guess the word.");
+            System.out.println("The secret word was:");
+            System.out.println(secret);
         }
 
         inp.close();
